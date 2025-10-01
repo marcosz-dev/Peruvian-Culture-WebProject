@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Biblioteca de cuentos y leyendas del Perú | Envía tu aporte</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Biblioteca de Cuentos y Leyendas del Perú</h1>
+    <figure>  
+      <img src="Peruvian Art.jpg" alt="Paisaje andino - Machu Picchu">
+      <figcaption>Imagen representativa de la cultura peruana</figcaption>
+    </figure>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="mitos.html">Mitos y Leyendas</a></li>
+        <li><a href="cuentos.html">Cuentos Peruanos</a></li>
+        <li><a href="noticias.html">Noticias</a></li>
+        <li><a href="acerca.html">Acerca de</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="aportes.html">Envía tu aporte</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Envía tu cuento o leyenda</h2>
+    <p>Si tienes un cuento o leyenda que quieras compartir, completa el siguiente formulario:</p>
+
+    <form action="procesar_aporte.php" method="post">
+      <label for="nombre">Tu nombre:</label><br>
+      <input type="text" id="nombre" name="nombre" required><br><br>
+
+      <label for="email">Correo electrónico:</label><br>
+      <input type="email" id="email" name="email" required><br><br>
+
+      <label for="titulo">Título del aporte:</label><br>
+      <input type="text" id="titulo" name="titulo" required><br><br>
+
+      <label for="tipo">Tipo:</label><br>
+      <select id="tipo" name="tipo">
+        <option value="cuento">Cuento</option>
+        <option value="leyenda">Leyenda</option>
+        <option value="mito">Mito</option>
+      </select><br><br>
+
+      <label for="aporte">Escribe aqui tu aporte:</label><br>
+      <textarea id="aporte" name="aporte" rows="6" maxlength="2000" placeholder="Máximo 2000 caracteres (aprox. media página)"></textarea><br><br>
+
+      <label for="archivo">O subir archivo (PDF):</label><br>
+      <input type="file" id="archivo" name="archivo" accept=".pdf"><br><br>
+
+      <button type="submit">Enviar aporte</button>
+    </form>
+  </main>
+
+  <footer>
+    <p>Proyecto de Introducción al Desarrollo Web – 2025 | Marco Salas
+      Arequipa, Perú
+    </p>
+  </footer>
+</body>
+</html>
