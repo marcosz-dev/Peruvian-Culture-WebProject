@@ -7,6 +7,27 @@ body {
   color: #333;
 }
 
+/* Pseudo-clases para enlaces */
+a:link {
+  color: green;
+  background-color: #e8f5e9;
+}
+
+a:visited {
+  color: purple;
+  background-color: #f3e5f5;
+}
+
+a:hover {
+  color: red;
+  background-color: #ffebee;
+}
+
+a:active {
+  color: orange;
+  background-color: #fff3e0;
+}
+
 main {
   background-color: white;
   max-width: 900px;   /* centrado tipo libro */
@@ -23,6 +44,10 @@ h1 {
   text-align: center; 
 }
 
+div p {
+  color: blue;
+}
+
 p {
   text-align: justify;
   margin-bottom: 20px;
@@ -33,6 +58,17 @@ p {
   text-align: center;
   font-size: 22px;
   font-weight: bold;
+}
+
+h2 + p {
+  font-weight: bold;
+  color: #8b4513; /* marrón oscuro */
+}
+
+/* Selector de hermanos generales - todos los párrafos después de h2 */
+h2 ~ p {
+  color: green;
+  line-height: 2;
 }
 
 /* Caja destacada para cuentos */
@@ -55,6 +91,28 @@ nav ul {
 nav ul li {
   display: inline-block;
   margin: 0 15px;
+}
+
+/* Alternar colores en listas */
+main ol li:nth-child(odd) {
+  background-color: #f5f5f5;
+}
+
+main ol li:nth-child(even) {
+  background-color: #e0e0e0;
+}
+
+/* Agregar ==> al inicio de cada tarea */
+main ol li::before {
+  content: "==> ";
+  color: #228B22;
+  font-weight: bold;
+}
+
+/* Hover en tareas */
+main ol li:hover {
+  background-color: #d3d3d3;
+  cursor: pointer;
 }
 
 /* Tablas */
