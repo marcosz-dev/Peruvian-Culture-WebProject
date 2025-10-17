@@ -5,6 +5,9 @@ body {
   padding: 0;
   background-color: #e5dcc5;  /* fondo tipo cartón */
   color: #333;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto; /* Header, Nav, Main (flexible), Footer */
+  min-height: 100vh;
 }
 
 /* Pseudo-clases para enlaces */
@@ -31,8 +34,9 @@ a:active {
 main {
   background-color: white;
   max-width: 900px;   /* centrado tipo libro */
-  margin: 40px auto;
+  margin: 20px auto;
   padding: 30px;
+  box-sizing: border-box;
 }
 
 figure {
@@ -75,9 +79,7 @@ h2 ~ p {
 .caja {
   background-color: #f9f9f9; 
   border: 1px solid #ccc;    
-  padding: 15px;             
-  margin: 20px auto;      
-  width: 70%;       
+  padding: 15px;  
   text-align: justify;
 }
 
@@ -91,6 +93,21 @@ nav ul {
 nav ul li {
   display: inline-block;
   margin: 0 15px;
+}
+
+nav {
+    background-color: #588157; /* Un color de fondo para la barra de nav */
+}
+
+nav ul li a {
+    color: white;
+    font-weight: bold;
+    background-color: transparent; /* Quitar el fondo de los enlaces en nav */
+}
+
+nav ul li a:hover {
+    background-color: #a3b18a;
+    color: #344e41;
 }
 
 /* Alternar colores en listas */
@@ -150,7 +167,6 @@ button:hover {
   background-color: darkgreen; 
 }
 
-
 footer {
   text-align: center;
   margin-top: 40px;
@@ -158,3 +174,20 @@ footer {
   color: #555;
 }
 
+.content-container {
+    display: flex;
+    justify-content: space-around; /* Distribuye el espacio */
+    gap: 20px; /* Espacio entre las tarjetas */
+    flex-wrap: wrap; /* Permite que los elementos bajen si no hay espacio */
+}
+
+.content-container section, .content-container .caja {
+    flex: 1; /* Permite que las tarjetas crezcan para ocupar el espacio */
+    min-width: 250px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;    /* Borde */
+    padding: 20px;             /* Relleno interno */
+    margin: 10px;              /* Margen externo */
+    border-radius: 8px;
+    box-sizing: border-box; 
+}
