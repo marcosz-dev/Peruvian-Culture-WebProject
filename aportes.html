@@ -6,60 +6,85 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Biblioteca de Cuentos y Leyendas del Perú</h1>
-    <figure>  
-      <img src="Peruvian Art.jpg" alt="Paisaje andino - Machu Picchu">
-      <figcaption>Imagen representativa de la cultura peruana</figcaption>
-    </figure>
-    <nav>
-      <ul>
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="mitos.html">Mitos y Leyendas</a></li>
-        <li><a href="cuentos.html">Cuentos Peruanos</a></li>
-        <li><a href="noticias.html">Noticias</a></li>
-        <li><a href="acerca.html">Acerca de</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
-        <li><a href="aportes.html">Envía tu aporte</a></li>
-      </ul>
-    </nav>
+
+<header class="header">
+    <div class="container">
+      <h1 class="logo">Biblioteca C.P.</h1>
+      <nav class="nav-main">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="mitos.html">Mitos y Leyendas</a></li>
+          <li><a href="cuentos.html">Cuentos Peruanos</a></li>
+          <li><a href="acerca.html">Acerca de</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+          <li><a href="aportes.html">Aportes</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
+  
+  <section class="hero">
+    <div class="container">
+      <h2>Envía tu Aporte</h2>
+      <p class="titulo">Ayúdanos a preservar la tradición oral y escrita del Perú.</p>
+    </div>
+  </section>
 
-  <main>
-    <h2>Envía tu cuento o leyenda</h2>
-    <p>Si tienes un cuento o leyenda que quieras compartir, completa el siguiente formulario:</p>
+  <main class="main-content">
+    <div class="container">
 
-    <form action="#" method="post">
-      <label for="nombre">Tu nombre:</label><br>
-      <input type="text" id="nombre" name="nombre" required><br><br>
+      <section class="card">
+        <h2>Comparte tu historia</h2>
+        <p>Si tienes un cuento o leyenda que quieras compartir, completa el siguiente formulario. Tu aporte será revisado y publicado para que todos puedan leerlo.</p>
 
-      <label for="email">Correo electrónico:</label><br>
-      <input type="email" id="email" name="email" required><br><br>
+        <form action="#" method="post">
+          <div class="form-group">
+            <label for="nombre">Tu nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Correo electrónico:</label>
+            <input type="email" id="email" name="email" required>
+          </div>
 
-      <label for="titulo">Título del aporte:</label><br>
-      <input type="text" id="titulo" name="titulo" required><br><br>
+          <div class="form-group">
+            <label for="titulo">Título del aporte:</label>
+            <input type="text" id="titulo" name="titulo" required>
+          </div>
 
-      <label for="tipo">Tipo:</label><br>
-      <select id="tipo" name="tipo">
-        <option value="cuento">Cuento</option>
-        <option value="leyenda">Leyenda</option>
-        <option value="mito">Mito</option>
-      </select><br><br>
+          <div class="form-group">
+            <label for="tipo">Tipo:</label>
+            <select id="tipo" name="tipo">
+              <option value="cuento">Cuento</option>
+              <option value="leyenda">Leyenda</option>
+              <option value="mito">Mito</option>
+            </select>
+          </div>
 
-      <label for="aporte">Escribe aqui tu aporte:</label><br>
-      <textarea id="aporte" name="aporte" rows="6" maxlength="2000" placeholder="Máximo 2000 caracteres (aprox. media página)"></textarea><br><br>
+          <div class="form-group">
+            <label for="aporte">Escribe aqui tu aporte:</label>
+            <textarea id="aporte" name="aporte" rows="6" maxlength="2000" placeholder="Máximo 2000 caracteres..."></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="archivo">O subir archivo (PDF):</label>
+            <input type="file" id="archivo" name="archivo" accept=".pdf">
+          </div>
 
-      <label for="archivo">O subir archivo (PDF):</label><br>
-      <input type="file" id="archivo" name="archivo" accept=".pdf"><br><br>
+          <input type="submit" value="Enviar Aporte" class="btn">
+        </form>
+      </section>
 
-      <button type="submit">Enviar aporte</button>
-    </form>
+    </div>
   </main>
 
-  <footer>
-    <p>Proyecto de Introducción al Desarrollo Web – 2025 | Marco Salas
-      Arequipa, Perú
-    </p>
+  <footer class="footer">
+    <div class="container">
+      <p>Proyecto de Introducción al Desarrollo Web – 2025 | Marco Salas</p>
+      <p>Arequipa, Perú</p>
+    </div>
   </footer>
+  
 </body>
 </html>

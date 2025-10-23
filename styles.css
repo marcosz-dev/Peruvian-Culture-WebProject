@@ -1,193 +1,307 @@
+
+/* Estilos globales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
   font-family: "Georgia", serif;
   line-height: 1.8;
-  margin: 0;
-  padding: 0;
-  background-color: #e5dcc5;  /* fondo tipo cartón */
+  background-color: #e5dcc5;  /* Tu fondo tipo cartón */
   color: #333;
   display: grid;
-  grid-template-rows: auto auto 1fr auto; /* Header, Nav, Main (flexible), Footer */
+  grid-template-rows: auto auto 1fr auto; /* Header, Hero, Main (flexible), Footer */
   min-height: 100vh;
 }
 
-/* Pseudo-clases para enlaces */
-a:link {
-  color: green;
-  background-color: #e8f5e9;
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-a:visited {
-  color: purple;
-  background-color: #f3e5f5;
+/* Header y navegación*/
+.header {
+    background-color: #588157; /* Tu verde */
+    color: white;
+    padding: 15px 0; /* Más delgado, ya no tiene imagen */
 }
 
-a:hover {
-  color: red;
-  background-color: #ffebee;
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; 
 }
 
-a:active {
-  color: orange;
-  background-color: #fff3e0;
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
 }
 
-main {
-  background-color: white;
-  max-width: 900px;   /* centrado tipo libro */
-  margin: 20px auto;
-  padding: 30px;
-  box-sizing: border-box;
-}
-
-figure {
-  text-align: center;  /* centrar figura*/
-}
-
-h1 {
-  color: green; 
-  text-align: center; 
-}
-
-div p {
-  color: blue;
-}
-
-p {
-  text-align: justify;
-  margin-bottom: 20px;
-}
-
-.titulo {
-  color: #FF4500;
-  text-align: center;
-  font-size: 22px;
-  font-weight: bold;
-}
-
-h2 + p {
-  font-weight: bold;
-  color: #8b4513; /* marrón oscuro */
-}
-
-/* Selector de hermanos generales - todos los párrafos después de h2 */
-h2 ~ p {
-  color: green;
-  line-height: 2;
-}
-
-/* Caja destacada para cuentos */
-.caja {
-  background-color: #f9f9f9; 
-  border: 1px solid #ccc;    
-  padding: 15px;  
-  text-align: justify;
-}
-
-/* Navegación */
-nav ul {
+.nav-main ul {
   list-style: none;
-  padding: 0;
-  text-align: center;
 }
-
-nav ul li {
+.nav-main ul li {
   display: inline-block;
-  margin: 0 15px;
+  margin: 0 10px;
 }
-
-nav {
-    background-color: #588157; /* Un color de fondo para la barra de nav */
-}
-
-nav ul li a {
+.nav-main ul li a {
     color: white;
     font-weight: bold;
-    background-color: transparent; /* Quitar el fondo de los enlaces en nav */
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
 }
-
-nav ul li a:hover {
+.nav-main ul li a:hover {
     background-color: #a3b18a;
     color: #344e41;
 }
 
-/* Alternar colores en listas */
-main ol li:nth-child(odd) {
-  background-color: #f5f5f5;
+/* --- ============================ --- */
+/* --- SECCIÓN HERO --- */
+/* --- ============================ --- */
+.hero {
+    /* Tu imagen 'Peruvian Art.jpg' como fondo */
+    background-image: url('Peruvian Art.jpg');
+    background-size: cover;
+    background-position: center center;
+    padding: 100px 20px;
+    text-align: center;
+    color: white; /* Texto blanco para que resalte */
+
+    /* Overlay oscuro para legibilidad */
+    position: relative;
+    z-index: 1;
+}
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Overlay negro al 50% */
+    z-index: -1; /* Se pone detrás del texto */
 }
 
-main ol li:nth-child(even) {
-  background-color: #e0e0e0;
+.hero h2 {
+    color: white;
+    font-size: 2.8rem;
+}
+.hero .titulo {
+    color: #f0f0f0; /* Blanco suave */
+    font-size: 1.3rem;
 }
 
-/* Agregar ==> al inicio de cada tarea */
-main ol li::before {
-  content: "==> ";
-  color: #228B22;
+
+
+/* --- CONTENIDO PRINCIPAL --- */
+
+
+.main-content {
+  background-color: transparent; 
+  padding: 30px 0;
+}
+
+/* Estilos de texto generales */
+.main-content h2, .main-content h3 {
+  color: #8b4513; /* Tu marrón oscuro */
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+.main-content h2 { font-size: 2rem; }
+.main-content h3 { font-size: 1.5rem; }
+
+.main-content p, .main-content ul, .main-content ol {
+  text-align: justify;
+  margin-bottom: 20px;
+}
+.main-content ul, .main-content ol {
+    padding-left: 30px;
+}
+
+/* Este .titulo es para el texto rojo de 'cta-card' */
+.titulo {
+  color: #FF4500;
+  text-align: center;
+  font-size: 1.2rem;
   font-weight: bold;
 }
 
-/* Hover en tareas */
-main ol li:hover {
-  background-color: #d3d3d3;
-  cursor: pointer;
+/* --- CLASE "CARD" REUTILIZABLE --- */
+.card {
+    background-color: #f9f9f9; 
+    border: 1px solid #ccc;    
+    padding: 25px;  
+    border-radius: 8px;
+    margin-bottom: 25px; /* Espacio entre tarjetas */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
 }
 
-/* Tablas */
-table {
-  border-collapse: collapse;
-  margin: 20px auto;
-  width: 90%;
-  text-align: center;
+/* --- REJILLA (GRID) DE PÁGINA DE INICIO --- */
+.home-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 columnas */
+    gap: 25px;
 }
-
-table, th, td {
-  border: 1px solid black;
-}
-
-th, td {
-  padding: 10px;
+.home-grid .card {
+    margin-bottom: 0; 
 }
 
 
-.button-aportar {
-  text-align: center; 
-  margin-top: 20px;
+/* --- Tarjeta de Call-to-Action (CTA) --- */
+.cta-card {
+    text-align: center;
+    background-color: #588157; /* Tu verde */
+    color: white;
+}
+.cta-card h2 {
+    color: white;
+}
+.cta-card .titulo {
+    color: #f0f0f0;
 }
 
+
+/* --- BOTONES Y FORMULARIOS --- */
+
+/* 1. Estilos de enlaces */
+.main-content a {
+  color: #8b4513;
+  text-decoration: none;
+  font-weight: bold;
+}
+.main-content a:hover {
+  text-decoration: underline;
+}
+
+/* 2. Estilos de Botón */
+.btn,
 button {
-  background-color: green;
+  background-color: #588157; /* Tu verde */
   color: white;
   border-radius: 8px;
-  padding: 10px 20px;
+  padding: 12px 25px;
   border: none;
   cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s;
 }
-
+.btn:hover,
 button:hover {
-  background-color: darkgreen; 
+  background-color: #344e41; /* Verde más oscuro */
 }
 
-footer {
-  text-align: center;
-  margin-top: 40px;
-  font-size: 14px;
-  color: #555;
+/* Botón claro para el CTA */
+.btn-light {
+    background-color: white;
+    color: #588157; /* Texto verde */
+}
+.btn-light:hover {
+    background-color: #f0f0f0;
+    color: #344e41;
 }
 
-.content-container {
-    display: flex;
-    justify-content: space-around; /* Distribuye el espacio */
-    gap: 20px; /* Espacio entre las tarjetas */
-    flex-wrap: wrap; /* Permite que los elementos bajen si no hay espacio */
-}
-
-.content-container section, .content-container .caja {
-    flex: 1; /* Permite que las tarjetas crezcan para ocupar el espacio */
-    min-width: 250px;
+/* 3. Estilos de Formulario */
+form {
     background-color: #f9f9f9;
-    border: 1px solid #ccc;    /* Borde */
-    padding: 20px;             /* Relleno interno */
-    margin: 10px;              /* Margen externo */
+    padding: 30px;
+    border: 1px solid #ccc;
     border-radius: 8px;
-    box-sizing: border-box; 
+}
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+form input[type="text"],
+form input[type="email"],
+form textarea,
+form select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f4f4f4;
+    font-family: "Georgia", serif;
+    font-size: 1rem;
+}
+
+/* 4. Estilos de Tabla */
+table {
+  border-collapse: collapse;
+  margin: 20px 0;
+  width: 100%;
+}
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 12px;
+  text-align: left;
+}
+table th {
+  background-color: #f4f4f4;
+  color: #333;
+}
+.table-responsive {
+    overflow-x: auto;
+}
+
+/* --- FOOTER --- */
+
+.footer {
+  text-align: center;
+  padding: 30px 0;
+  font-size: 0.9rem;
+  color: #555;
+  background-color: #d8cbad; /* Un cartón un poco más oscuro */
+}
+
+/* --- ============================ --- */
+/* --- RESPONSIVE --- */
+/* --- ============================ --- */
+
+@media (max-width: 768px) {
+    .header .container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .logo {
+        font-size: 1.5rem;
+    }
+    .nav-main ul {
+        text-align: center;
+        padding: 0;
+    }
+    .nav-main ul li {
+        margin: 0 5px;
+    }
+
+    /* La rejilla de 2 columnas se apila */
+    .home-grid {
+        grid-template-columns: 1fr;
+    }
+    /* Añadimos margen inferior a la primera tarjeta */
+    .home-grid .card {
+        margin-bottom: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-main ul li {
+        display: block;
+        margin: 10px 0;
+    }
+    .card {
+        padding: 20px;
+    }
+    form {
+        padding: 20px;
+    }
 }
