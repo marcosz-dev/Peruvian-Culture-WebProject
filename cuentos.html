@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cuentos Peruanos | Biblioteca C.P.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="logo">Biblioteca C.P.</div>
+      <nav class="nav-main">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="mitos.html">Mitos</a></li>
+          <li><a href="cuentos.html">Cuentos</a></li>
+          <li><a href="acerca.html">Acerca de</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+          <li><a href="aportes.html">Aportes</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" style="padding: 100px 20px;">
+    <div class="container">
+      <h2>Cuentos Peruanos</h2>
+      <p class="titulo">Narrativa moderna y tradición escrita.</p>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <div class="container">
+      <section class="card full-width">
+        <h3>Colección de Cuentos</h3>
+        <ol id="lista-cuentos" class="lista-interactiva">
+           <li>Cargando cuentos...</li>
+        </ol>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container"><p>Marco Salas - 2025</p></div>
+  </footer>
+
+  <div id="modal-historia" class="modal-overlay">
+    <div class="modal-content">
+      <span class="close-btn" onclick="cerrarModal()">&times;</span>
+      <div class="modal-header">
+        <h2 id="m-titulo">Título</h2>
+        <p class="modal-meta">Autor: <span id="m-autor"></span> | Región: <span id="m-region"></span></p>
+      </div>
+      <div class="modal-body"><p id="m-contenido"></p></div>
+    </div>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
