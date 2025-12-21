@@ -3,12 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <title>Biblioteca de cuentos y leyendas del Perú | Inicio</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
 
   <header class="header">
     <div class="container">
+      <div class="logo">Biblioteca C.P.</div>
       <nav class="nav-main">
         <ul>
           <li><a href="index.html">Inicio</a></li>
@@ -36,70 +40,34 @@
       <div class="home-grid">
         <section class="card">
             <h3>Mitos Fundacionales</h3>
-            <p>Explora las historias que dieron forma al mundo andino. Estos son los relatos más buscados en nuestra biblioteca:</p>
-            <ul>
-              <li>El mito de <i>Manco Cápac y Mama Ocllo</i></li>
-              <li>La leyenda del Muqui</li>
-              <li>El mito de Kon</li>
+            <p>Explora las historias que dieron forma al mundo andino:</p>
+            <ul id="lista-mitos">
+               <li>Cargando mitos...</li>
             </ul>
         </section>
 
         <section class="card">
           <h3>Joyas de la Narrativa</h3>
-          <p>Descubre las obras maestras de los grandes autores que definieron la literatura peruana moderna.</p>
-          <ol>
-            <li>“Los gallinazos sin plumas” – Julio Ramón Ribeyro</li>
-            <li>“El caballero Carmelo” – Abraham Valdelomar</li>
-            <li>“Calixto Garmendia” – Ciro Alegría</li>
+          <p>Obras maestras de la literatura peruana moderna:</p>
+          <ol id="lista-cuentos">
+            <li>Cargando cuentos...</li>
           </ol>
         </section>
       </div>
+
       <section class="card">
         <h3>Explora por Región</h3>
-        <p>Nuestra colección está organizada por las tres grandes regiones, cada una con su propia magia, tradición oral y misticismo.</p>
+        <p>Nuestra colección está organizada por las tres grandes regiones:</p>
           <ul>
-            <li><b>Sierra:</b> Fiestas Patronales, Mitos Incas, Cuentos de José María Arguedas.</li>
-            <li><b>Selva:</b> Mitología amazónica, Cuentos orales de comunidades nativas.</li>
-            <li><b>Costa:</b> Leyendas de pescadores, Cuentos criollos de Abraham Valdelomar.</li>
+            <li><b>Sierra:</b> Fiestas Patronales, Mitos Incas.</li>
+            <li><b>Selva:</b> Mitología amazónica, Cuentos orales.</li>
+            <li><b>Costa:</b> Leyendas de pescadores, Criollismo.</li>
           </ul>
-      </section>
-
-      <section class="card" id="tabla-cronologia">
-        <h2>Un Viaje en el Tiempo</h2>
-        <p>Sigue la evolución de nuestras historias, desde los mitos orales incaicos hasta la narrativa social urbana del siglo XX.</p>
-        <div class="table-responsive">
-          <table>
-            <thead>
-              <tr>
-                <th>Época</th>
-                <th>Manifestaciones</th>
-                <th>Ejemplo</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Época Inca</td>
-                <td>Mitos fundacionales</td>
-                <td>Manco Cápac y Mama Ocllo</td>
-              </tr>
-              <tr>
-                <td>Colonia</td>
-                <td>Crónicas y leyendas</td>
-                <td>Guamán Poma</td>
-              </tr>
-              <tr>
-                <td>Siglo XX</td>
-                <td>Cuentos urbanos</td>
-                <td>Los gallinazos sin plumas</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
       </section>
 
       <section class="card cta-card">
         <h2>¡Tu Historia Vale!</h2>
-        <p class="titulo">Esta biblioteca la construimos todos. Si conoces un relato de tu región, ayúdanos a preservar la tradición.</p>
+        <p class="titulo">Ayúdanos a preservar la tradición.</p>
         <div class="button-container">
           <a href="aportes.html" class="btn btn-light">Enviar tu aporte</a>
         </div>
@@ -114,5 +82,6 @@
   </div>
 </footer>
 
+<script src="/static/app.js"></script>
 </body>
 </html>
