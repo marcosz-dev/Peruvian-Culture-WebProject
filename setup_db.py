@@ -6,11 +6,11 @@ def init_db():
         os.remove('cultura.db')
         print("Base de datos anterior eliminada...")
 
-    # 2. Conexión y Creación de Tabla
+    # Conexión y Creación de Tabla
     conn = sqlite3.connect('cultura.db')
     cursor = conn.cursor()
 
-    # Creamos la tabla 'relatos' con la nueva columna 'contenido'
+    # Creamos la tabla relatos con la nueva columna contenido
     cursor.execute('''
         CREATE TABLE relatos (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -22,8 +22,7 @@ def init_db():
         )
     ''')
 
-    # 3. Datos Iniciales (Historias Completas)
-    # Aquí puedes agregar más texto si quieres que los cuentos sean más largos.
+    # Datos Iniciales
     relatos_iniciales = [
         (
             'Manco Cápac y Mama Ocllo', 

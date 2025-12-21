@@ -9,7 +9,7 @@ def obtener_relatos_bd():
     conn = sqlite3.connect('cultura.db')
     cursor = conn.cursor()
     
-    # ¡AQUÍ ESTABA EL PROBLEMA! Faltaba pedir 'contenido' en esta lista
+    # Pedir contenido en esta lista
     cursor.execute("SELECT titulo, autor, tipo, region, contenido FROM relatos")
     filas = cursor.fetchall()
     conn.close()
@@ -21,7 +21,7 @@ def obtener_relatos_bd():
             "autor": fila[1],
             "tipo": fila[2],
             "region": fila[3],
-            "contenido": fila[4]  # <-- Y aquí lo empaquetamos para enviarlo
+            "contenido": fila[4]  # Empaquetar para enviarlo
         })
     return resultado
 
@@ -30,7 +30,7 @@ def application(environ, start_response):
     path = environ.get('PATH_INFO', '/')
     method = environ.get('REQUEST_METHOD', 'GET')
     
-    # 1. RUTA API: Datos JSON
+    # RUTA API: Datos JSON
     if path == '/api/relatos' and method == 'GET':
         status = '200 OK'
         headers = [('Content-Type', 'application/json; charset=utf-8')]
@@ -38,7 +38,7 @@ def application(environ, start_response):
         datos = obtener_relatos_bd()
         return [json.dumps(datos).encode('utf-8')]
 
-    # 2. RUTAS ESTÁTICAS (CSS, JS, Imágenes en /static/)
+    # RUTAS ESTÁTICAS (CSS, JS, Imágenes en /static/)
     elif path.startswith('/static/'):
         file_path = path.lstrip('/') 
         if os.path.exists(file_path) and os.path.isfile(file_path):
@@ -49,7 +49,7 @@ def application(environ, start_response):
             with open(file_path, 'rb') as f:
                 return [f.read()]
     
-    # 3. RUTAS DE PÁGINAS HTML (En la raíz)
+    # RUTAS DE PÁGINAS HTML (En la raíz)
     else:
         filename = 'index.html' if path == '/' else path.lstrip('/')
         if os.path.exists(filename) and os.path.isfile(filename) and filename.endswith('.html'):
