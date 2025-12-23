@@ -19,5 +19,10 @@ Plataforma web Full Stack para la difusión de la cultura peruana, desarrollada 
 4.  Configurar base de datos local en `setup_db.py` y `server.py` (Usuario/Pass).
 5.  Iniciar servidor: `python server.py`
 
+## 🔐 Acceso Administrativo
+Para visualizar los mensajes de contacto recibidos, ingrese manualmente a la siguiente ruta:
+* **URL:** `/admin.html` (ej: `https://marcosz.pythonanywhere.com/admin.html`)
+* **Contraseña:** `admin123`
+
 ## ✒️ Autor
 Marco Salas - UNSA 2025.
