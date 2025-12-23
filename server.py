@@ -1,29 +1,44 @@
-import sqlite3
 import json
 import os
 import mimetypes
 from wsgiref.simple_server import make_server
-from urllib.parse import parse_qs
+import mysql.connector # conector de MySQL
+
+# --- CONFIGURACIÓN DE CONEXIÓN ---
+def get_db_connection():
+    return mysql.connector.connect(
+        host="localhost",
+        user="admin",
+        password="admin123", 
+        database="cultura_db"
+    )
 
 # --- FUNCIONES DE BASE DE DATOS ---
 def obtener_relatos_bd():
-    conn = sqlite3.connect('cultura.db')
-    cursor = conn.cursor()
-    cursor.execute("SELECT titulo, autor, tipo, region, contenido FROM relatos")
-    filas = cursor.fetchall()
-    conn.close()
-    return [{"titulo":f[0], "autor":f[1], "tipo":f[2], "region":f[3], "contenido":f[4]} for f in filas]
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT titulo, autor, tipo, region, contenido FROM relatos")
+        filas = cursor.fetchall()
+        conn.close()
+        
+        # Convertir las tuplas a diccionarios
+        return [{"titulo":f[0], "autor":f[1], "tipo":f[2], "region":f[3], "contenido":f[4]} for f in filas]
+    except Exception as e:
+        print(f"Error BD: {e}")
+        return []
 
 def guardar_mensaje(nombre, email, asunto, mensaje):
-    conn = sqlite3.connect('cultura.db')
+    conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO mensajes (nombre, email, asunto, mensaje) VALUES (?, ?, ?, ?)", 
-                   (nombre, email, asunto, mensaje))
+    # MySQL usa %s como placeholder
+    sql = "INSERT INTO mensajes (nombre, email, asunto, mensaje) VALUES (%s, %s, %s, %s)"
+    cursor.execute(sql, (nombre, email, asunto, mensaje))
     conn.commit()
     conn.close()
 
 def obtener_mensajes_bd():
-    conn = sqlite3.connect('cultura.db')
+    conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT id, nombre, email, asunto, mensaje FROM mensajes")
     filas = cursor.fetchall()
@@ -43,16 +58,16 @@ def application(environ, start_response):
     # API: GUARDAR CONTACTO (POST)
     elif path == '/api/contacto' and method == 'POST':
         try:
-            # Leer el cuerpo de la petición
             content_length = int(environ.get('CONTENT_LENGTH', 0))
             body = environ['wsgi.input'].read(content_length).decode('utf-8')
-            datos = json.loads(body) # Recibimos JSON desde el JS
+            datos = json.loads(body)
             
             guardar_mensaje(datos['nombre'], datos['email'], datos['asunto'], datos['mensaje'])
             
             start_response('200 OK', [('Content-Type', 'application/json')])
             return [json.dumps({"status": "ok", "mensaje": "Recibido"}).encode('utf-8')]
         except Exception as e:
+            print(f"Error POST: {e}")
             start_response('500 Error', [('Content-Type', 'text/plain')])
             return [str(e).encode('utf-8')]
 
