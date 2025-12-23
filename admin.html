@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Mensajes | Biblioteca C.P.</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <style>
+      #zona-segura { display: none; } /* Oculto por defecto */
+      .tabla-mensajes { width: 100%; margin-top: 20px; }
+      .login-box { text-align: center; margin-top: 50px; }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container"><div class="logo">Panel Administrativo</div></div>
+  </header>
+
+  <main class="main-content">
+    <div class="container">
+        
+        <div id="login-panel" class="login-box card">
+            <h3>Acceso Restringido</h3>
+            <p>Ingrese la contraseña de administrador:</p>
+            <input type="password" id="password" placeholder="Contraseña">
+            <button class="btn" onclick="verificarPassword()">Ingresar</button>
+        </div>
+
+        <div id="zona-segura">
+            <h2>Buzón de Mensajes</h2>
+            <div class="table-responsive">
+                <table class="tabla-mensajes">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Asunto</th>
+                            <th>Mensaje</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-body">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+  </main>
+
+  <script>
+    // Contraseña
+    function verificarPassword() {
+        const pass = document.getElementById('password').value;
+        if (pass === "admin123") {
+            document.getElementById('login-panel').style.display = 'none';
+            document.getElementById('zona-segura').style.display = 'block';
+            cargarMensajes();
+        } else {
+            alert("Contraseña incorrecta");
+        }
+    }
+
+    async function cargarMensajes() {
+        const response = await fetch('/api/mensajes');
+        const mensajes = await response.json();
+        const tbody = document.getElementById('tabla-body');
+        
+        mensajes.forEach(msg => {
+            tbody.innerHTML += `
+                <tr>
+                    <td>${msg.nombre}</td>
+                    <td>${msg.email}</td>
+                    <td>${msg.asunto}</td>
+                    <td>${msg.mensaje}</td>
+                </tr>
+            `;
+        });
+    }
+  </script>
+</body>
+</html>

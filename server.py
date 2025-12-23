@@ -3,71 +3,83 @@ import json
 import os
 import mimetypes
 from wsgiref.simple_server import make_server
+from urllib.parse import parse_qs
 
-# --- LÓGICA DE BASE DE DATOS ---
+# --- FUNCIONES DE BASE DE DATOS ---
 def obtener_relatos_bd():
     conn = sqlite3.connect('cultura.db')
     cursor = conn.cursor()
-    
-    # Pedir contenido en esta lista
     cursor.execute("SELECT titulo, autor, tipo, region, contenido FROM relatos")
     filas = cursor.fetchall()
     conn.close()
-    
-    resultado = []
-    for fila in filas:
-        resultado.append({
-            "titulo": fila[0],
-            "autor": fila[1],
-            "tipo": fila[2],
-            "region": fila[3],
-            "contenido": fila[4]  # Empaquetar para enviarlo
-        })
-    return resultado
+    return [{"titulo":f[0], "autor":f[1], "tipo":f[2], "region":f[3], "contenido":f[4]} for f in filas]
+
+def guardar_mensaje(nombre, email, asunto, mensaje):
+    conn = sqlite3.connect('cultura.db')
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO mensajes (nombre, email, asunto, mensaje) VALUES (?, ?, ?, ?)", 
+                   (nombre, email, asunto, mensaje))
+    conn.commit()
+    conn.close()
+
+def obtener_mensajes_bd():
+    conn = sqlite3.connect('cultura.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, nombre, email, asunto, mensaje FROM mensajes")
+    filas = cursor.fetchall()
+    conn.close()
+    return [{"id":f[0], "nombre":f[1], "email":f[2], "asunto":f[3], "mensaje":f[4]} for f in filas]
 
 # --- APLICACIÓN WSGI ---
 def application(environ, start_response):
     path = environ.get('PATH_INFO', '/')
     method = environ.get('REQUEST_METHOD', 'GET')
     
-    # RUTA API: Datos JSON
+    # API: OBTENER RELATOS (GET)
     if path == '/api/relatos' and method == 'GET':
-        status = '200 OK'
-        headers = [('Content-Type', 'application/json; charset=utf-8')]
-        start_response(status, headers)
-        datos = obtener_relatos_bd()
-        return [json.dumps(datos).encode('utf-8')]
+        start_response('200 OK', [('Content-Type', 'application/json')])
+        return [json.dumps(obtener_relatos_bd()).encode('utf-8')]
 
-    # RUTAS ESTÁTICAS (CSS, JS, Imágenes en /static/)
+    # API: GUARDAR CONTACTO (POST)
+    elif path == '/api/contacto' and method == 'POST':
+        try:
+            # Leer el cuerpo de la petición
+            content_length = int(environ.get('CONTENT_LENGTH', 0))
+            body = environ['wsgi.input'].read(content_length).decode('utf-8')
+            datos = json.loads(body) # Recibimos JSON desde el JS
+            
+            guardar_mensaje(datos['nombre'], datos['email'], datos['asunto'], datos['mensaje'])
+            
+            start_response('200 OK', [('Content-Type', 'application/json')])
+            return [json.dumps({"status": "ok", "mensaje": "Recibido"}).encode('utf-8')]
+        except Exception as e:
+            start_response('500 Error', [('Content-Type', 'text/plain')])
+            return [str(e).encode('utf-8')]
+
+    # API: VER MENSAJES (GET - Para el admin)
+    elif path == '/api/mensajes' and method == 'GET':
+        start_response('200 OK', [('Content-Type', 'application/json')])
+        return [json.dumps(obtener_mensajes_bd()).encode('utf-8')]
+
+    # ARCHIVOS ESTÁTICOS
     elif path.startswith('/static/'):
         file_path = path.lstrip('/') 
         if os.path.exists(file_path) and os.path.isfile(file_path):
             mime_type, _ = mimetypes.guess_type(file_path)
-            status = '200 OK'
-            headers = [('Content-Type', mime_type or 'text/plain')]
-            start_response(status, headers)
-            with open(file_path, 'rb') as f:
-                return [f.read()]
+            start_response('200 OK', [('Content-Type', mime_type or 'text/plain')])
+            with open(file_path, 'rb') as f: return [f.read()]
     
-    # RUTAS DE PÁGINAS HTML (En la raíz)
+    # HTML
     else:
         filename = 'index.html' if path == '/' else path.lstrip('/')
         if os.path.exists(filename) and os.path.isfile(filename) and filename.endswith('.html'):
-            status = '200 OK'
-            headers = [('Content-Type', 'text/html; charset=utf-8')]
-            start_response(status, headers)
-            with open(filename, 'rb') as f:
-                return [f.read()]
+            start_response('200 OK', [('Content-Type', 'text/html')])
+            with open(filename, 'rb') as f: return [f.read()]
         else:
-            status = '404 Not Found'
-            headers = [('Content-Type', 'text/plain; charset=utf-8')]
-            start_response(status, headers)
-            return [b"Error 404: Archivo no encontrado."]
-
-    return [b"Error 404"]
+            start_response('404 Not Found', [('Content-Type', 'text/plain')])
+            return [b"Error 404"]
 
 if __name__ == '__main__':
-    port = 8000
-    print(f"Servidor corriendo en http://localhost:{port} ...")
-    httpd = make_server('', port, application)
+    print("Servidor corriendo en http://localhost:8000 ...")
+    httpd = make_server('', 8000, application)
     httpd.serve_forever()

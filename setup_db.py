@@ -2,23 +2,29 @@ import sqlite3
 import os
 
 def init_db():
-    if os.path.exists('cultura.db'):
-        os.remove('cultura.db')
-        print("Base de datos anterior eliminada...")
-
-    # Conexión y Creación de Tabla
     conn = sqlite3.connect('cultura.db')
     cursor = conn.cursor()
 
-    # Creamos la tabla relatos con la nueva columna contenido
+    # Crea la tabla relatos
     cursor.execute('''
         CREATE TABLE relatos (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             titulo TEXT NOT NULL,
             autor TEXT,
-            tipo TEXT,    -- 'Mito', 'Leyenda' o 'Cuento'
-            region TEXT,  -- 'Costa', 'Sierra' o 'Selva'
-            contenido TEXT -- Aquí va el texto completo de la historia
+            tipo TEXT,    
+            region TEXT,  
+            contenido TEXT 
+        )
+    ''')
+
+    # Crea tabla de mensajes de contacto
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS mensajes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre TEXT NOT NULL,
+            email TEXT NOT NULL,
+            asunto TEXT,
+            mensaje TEXT
         )
     ''')
 
@@ -72,7 +78,7 @@ def init_db():
     
     conn.commit()
     conn.close()
-    print("Base de datos 'cultura.db' creada y actualizada con éxito.")
+    print("Base de datos actualizada")
 
 if __name__ == '__main__':
     init_db()
